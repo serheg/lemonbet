@@ -1,40 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Перенаправление в WhatsApp...</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
-        /* Скрываем ссылку, так как клик должен быть автоматическим */
-        #whatsapp-link { display: none; }
-    </style>
-</head>
-<body>
-
-    <h1>Пожалуйста, подождите...</h1>
-    <p>Мы перенаправляем вас в WhatsApp.</p>
-
-    <!-- Это та самая ссылка, на которую скрипт попытается нажать -->
-    <a id="whatsapp-link" href="whatsapp://send?phone=5491122516500&text=Hola">Перейти в WhatsApp</a>
-
-    <script>
-        // Этот скрипт запускается после полной загрузки страницы
+    <title>Переход в WhatsApp...</title>
+    <script type="text/javascript">
         window.onload = function() {
-            console.log("Страница загружена. Пытаюсь выполнить автоклик...");
+            // Пытаемся открыть прямую ссылку на приложение
+            window.location.href = 'whatsapp://send?phone=5491122516500&text=Hola';
 
-            // Находим нашу ссылку по ее уникальному ID
-            const whatsappLink = document.getElementById('whatsapp-link');
-
-            if (whatsappLink) {
-                // Программно "нажимаем" на ссылку
-                whatsappLink.click();
-                console.log("Команда .click() была вызвана.");
-            } else {
-                console.error("Ссылка для WhatsApp не найдена на странице.");
-            }
+            // Если через 2.5 секунды пользователь все еще на этой странице, 
+            // значит, приложение не открылось. Перенаправляем на универсальную веб-ссылку.
+            setTimeout(function () {
+                window.location.href = 'https://api.whatsapp.com/send/?phone=5491122516500&text=Hola';
+            }, 2500);
         };
     </script>
-
+</head>
+<body>
+    <p>Перенаправляем вас в WhatsApp. Если ничего не происходит, <a href="https://api.whatsapp.com/send/?phone=5491122516500&text=Hola">нажмите сюда</a>.</p>
 </body>
-</html>```
+</html>
